@@ -1,8 +1,8 @@
-# interview-creation Website
+# Interview Creation Website
 
 Installation Steps -
 
 - clone the repository
-- run 'npm install' in the directory
-- run 'node index.js'
+- run **npm install** in the directory
+- run **node index.js**
 

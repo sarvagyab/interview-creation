@@ -38,7 +38,7 @@ router.post('/add',async (req,res)=>{
         });
         const result = await newInterview.save();
         debug('Successfully added new interview');
-        validationError = "";
+        validationError = "Successfully Added Interview";
     }catch(err){
         debug("An error ocurred- ",err.message);
         validationError = err.message;
@@ -74,7 +74,7 @@ function preProcess(data){
 
     data.startTime = new Date(data.startDate + ' ' + data.startTime);
     data.endTime = new Date(data.endDate + ' ' + data.endTime);
-    debug("preprocessing passed");
+    debugData("preprocessing passed");
     return data;
 }
 
@@ -86,10 +86,10 @@ async function validateTime(data){
     if(data.startTime<(new Date())){
         return new Error("Invalid start date - Less than today");
     }
-    let rows = await Interview.find({candidate:data.candidate}).select('startTime endTime -_id');
+    let rows = await Interview.find({candidate:data.users}).select('startTime endTime -_id');
     for(x in rows){
         x = rows[x];
-        if((x.startTime>data.endTime || x.endTime<data.startTime))return new Error("Candidate already scheduled for interview at that time");
+        if(!(x.startTime>data.endTime || x.endTime<data.startTime))return new Error("Candidate already scheduled for interview at that time");
     }
     debug("Valid time!!");
     return true;

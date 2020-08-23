@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+  <head>
+    <meta charset="utf-8">
+    <title>Interview Creation App</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap');
+        .invisible {
+          display: none;
+          visibility: hidden;
+        }
+        *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Montserrat',sans-serif;
+        }
+        nav{
+        background: #151515;
+        padding: 5px 40px;
+        }
+        nav ul{
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        }
+        nav ul li{
+        padding: 15px 0;
+        cursor: pointer;
+        }
+        nav ul li.items{
+        position: relative;
+        width: auto;
+        margin: 0 16px;
+        text-align: center;
+        order: 3;
+        }
+        nav ul li.items:after{
+        position: absolute;
+        content: '';
+        left: 0;
+        bottom: 5px;
+        height: 2px;
+        width: 100%;
+        background: #33ffff;
+        opacity: 0;
+        transition: all 0.2s linear;
+        }
+        nav ul li.items:hover:after{
+        opacity: 1;
+        bottom: 8px;
+        }
+        nav ul li.logo{
+        flex: 1;
+        color: white;
+        font-size: 23px;
+        font-weight: 600;
+        cursor: default;
+        user-select: none;
+        }
+        nav ul li a{
+        color: white;
+        font-size: 18px;
+        text-decoration: none;
+        transition: .4s;
+        }
+        nav ul li:hover a{
+        color: cyan;
+        }
+        nav ul li i{
+        font-size: 23px;
+        }
+        nav ul li.btn{
+        display: none;
+        }
+        nav ul li.btn.hide i:before{
+        content: '\f00d';
+        }
+        @media all and (max-width: 900px){
+        nav{
+            padding: 5px 30px;
+        }
+        nav ul li.items{
+            width: 100%;
+            display: none;
+        }
+        nav ul li.items.show{
+            display: block;
+        }
+        nav ul li.btn{
+            display: block;
+        }
+        nav ul li.items:hover{
+            border-radius: 5px;
+            box-shadow: inset 0 0 5px #33ffff,
+                        inset 0 0 10px #66ffff;
+        }
+        nav ul li.items:hover:after{
+            opacity: 0;
+        }
+        }
+
+    </style>
+  </head>
+  <body>
+    <nav>
+      <ul>
+<li class="logo">Interview Creation</li>
+<li class="items"><a href="/admin/listAdmins/">List Admins</a></li>
+<li class="items"><a href="/admin/listUsers/">List Users</a></li>
+<li class="items"><a href="/admin/interview/listInterviews/">List Interviews</a></li>
+<li class="items"><a href="/admin/new/">Add New Admin</a></li>
+<li class="items"><a href="/admin/interview/add/">Add New Interview</a></li>
+<li class="btn"><a href="#"><i class="fas fa-bars"></i></a></li>
+</ul>
+</nav>
+    <script>
+      $(document).ready(function(){
+        $('.btn').click(function(){
+          $('.items').toggleClass("show");
+          $('ul li').toggleClass("hide");
+        });
+      });
+    </script>
+    <%- body%>
+  </body>
+</html>
+
+
+<script>
+  if($('div#status').text()!='')
+  {
+      console.log($('div#status').text());
+      alert($('div#status').text());
+  }
+</script>

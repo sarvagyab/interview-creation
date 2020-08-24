@@ -6,8 +6,7 @@ const { User } = require("../models/user");
 let added = "";
 
 router.get("/", (req, res) => {
-    debug("i am called here");
-    res.render("newUser", { error: added });
+    res.render("newUser", { error: added, layout: false });
     added = "";
 });
 
@@ -17,7 +16,7 @@ router.post("/",async (req, res) => {
         added = 'No files were uploaded.';
         return res.redirect("/user/");
     }
-    // debug(req.files);
+    debug(req.files);
     try {
         const resumeID = await fileUpload(req);
         debug("ID IS = ",resumeID);

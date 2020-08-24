@@ -1,4 +1,8 @@
-h3 {
+body{
+  background-color: rgb(231, 229, 229);
+}
+
+h1 {
   text-align: center;
   margin-top: 3%;
 }

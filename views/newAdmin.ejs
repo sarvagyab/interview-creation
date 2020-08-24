@@ -1,33 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>New Admin</title>
-</head>
-<body>
-    <h2 style="text-align: center; margin-top: 3%;">Add Admin</h2>;
- <div style="width: 50%; height: 50%; text-align: center;margin-left:auto;margin-right:auto;align-self: center;margin-top:5%">
-    <div id='status' class='invisible'><%= error %></div>
-    <br>
-    <form method="POST" action="/admin/new/">
-        <label for="name" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;font-size: large;">Name:</label>
-        <input type=test name="name" placeholder="Enter your Name...">
-        <br>
-        <br>
+    <link href="/css/newAdmin.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <h2>Add Admin</h2>
+    ;
+    <div id="top">
+      <div id="status" class="invisible"><%= error %></div>
+      <br />
+      <form method="POST" action="/admin/new/">
+        <label for="name">Name:</label>
+        <input
+          type="test"
+          id="name"
+          name="name"
+          placeholder="Enter your Name..."
+        />
+        <br />
+        <br />
 
-        <label for="email" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;font-size: large;">Email ID:</label>
-        <input type=test name="email" placeholder="Enter you Email ID...">
-        <br>
-        <br>
+        <label for="email">Email ID:</label>
+        <input
+          type="test"
+          id="email"
+          name="email"
+          placeholder="Enter you Email ID..."
+        />
+        <br />
+        <br />
 
-        <label for="phone" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;font-size: large;">Phone number:</label>
-        <input type=test name="phone" placeholder="Enter your phone no">
-        <br>
-        <br>
-        <input type="submit" value="Submit">
-    </form>
- 
-</div>
-</body>
+        <label for="phone">Phone number:</label>
+        <input
+          type="test"
+          id="phone"
+          name="phone"
+          placeholder="Enter your phone no"
+        />
+        <br />
+        <br />
+        <input type="submit" value="Submit" />
+      </form>
+    </div>
+  </body>
 </html>

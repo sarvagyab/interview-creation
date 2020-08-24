@@ -1,30 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>List of Admins</title>
-</head>
-<body>
-
-    <h2 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;text-align: center; padding:30px"> List of Admins</h2>
-    <table style="margin-left: auto; margin-right:auto;  border-collapse: separate;
-    border-spacing: 150px 0;">
-    <tr>
+    <link href="/css/listAdminsUsers.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <h2>List of Admins</h2>
+    <table>
+      <tr>
         <th>Name</th>
         <th>Email</th>
         <th>Phone</th>
-    </tr>
-        <% for(let x of list) {%>
-        <div class="candidate">
-            <tr>
-            <td style="padding: 20px 0;"><label for="name"> <%= x.name %></td>
-            <td style="padding: 20px 0;"><label for="name"> <%= x.email %></td>
-            <td style="padding: 20px 0;"><label for="name"> <%= x.phone %></td>
-            </tr>
-        </div>
-    <% }%>
- </table>
-
-</body>
+      </tr>
+      <% for(let x of list) {%>
+      <div class="candidate">
+        <tr>
+          <td><%= x.name %></td>
+          <td><%= x.email %></td>
+          <td><%= x.phone %></td>
+        </tr>
+      </div>
+      <% }%>
+    </table>
+  </body>
 </html>

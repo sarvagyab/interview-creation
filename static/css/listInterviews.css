@@ -1,0 +1,16 @@
+td,
+div {
+  padding: 10px 0;
+}
+table {
+  margin-left: 5%;
+  margin-right: 5%;
+  border-collapse: separate;
+  border-spacing: 100px 0;
+  background-color: gainsboro;
+}
+h2 {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  padding: 30px;
+}

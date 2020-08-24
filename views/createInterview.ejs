@@ -1,86 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>input details for interview</title>
     <style>
-    #hidden {
-        display: none;
-        height: 100px;
-        background: red;
-    }
-    :checked + #hidden {
-        display: block;
-    }
+        #hidden {
+            display: none;
+            height: 100px;
+            background: red;
+        }
+
+        :checked+#hidden {
+            display: block;
+        }
     </style>
 </head>
+
 <body>
     <div id='status' class='invisible'><%= error %></div>
- <div>
-     <form name = "something" action="/admin/interview/add/" method="POST" >
-       <div id ="timings" style="margin:auto;">
-        <h3 style="text-align: center; padding:3%">Timings</h3>
-     
-     
-    <section style="display: grid;grid-gap: 10px;width: 30%;margin-left:auto;margin-right: auto;">
-        <div id = "lefthalf" style="grid-column: 1;">
-        <label for="stard" st>Start date:</label>
-        <input type="date" id="stard" name="startDate">
-        </div>
-       
+    <div>
+        <form name="something" action="/admin/interview/add/" method="POST">
+            <div id="timings" style="margin:auto;">
+                <h3 style="text-align: center; padding:3%">Timings</h3>
 
-       
-        <div id="righthalf" style="grid-column: 2;">
-        <label for="start">Start time:</label>
-        <input type="time" id = "start" name = "startTime">
-        </div>
-    
-    
-    
-        <div id = "lefthalf1" style="grid-column: 1; grid-row: 2;">
-        <label for="endd">End date:</label>
-        <input type="date" id = "endd" name = "endDate">
-        </div>
-        
-        <div id="righthalf1" style="grid-column: 2;grid-column: 2;">
-        <label for="endt">End time:</label>
-        <input type="time" id = "endt" name = "endTime">
-        </div>
-     
-    </section>
-    <br>
-    <br>
-        <div style="text-align: center;">
-        <input type="submit" value="submit">
-        </div>
-        <br>
 
-       </div>
-       <section style="display: grid;grid-gap: 20%;margin-left: 30%; margin-right:18%">
-        <div style="grid-column: 1;border-right: 1px solid black;">
-        <h3 style="margin-bottom: 5%;">Select Candidate</h3> 
-        <% for (let user of users) { %>
-        <div style="justify-content: center;">
-        <input style="margin-bottom: 4%;" type="radio" id=<%= user.name%> name="users" value=<%=user._id%>>
-        <label for=<%= user.name%>><%= user.name%></label><br>
-        </div>
-        <% } %>
-        </div>
+                <section style="display: grid;grid-gap: 10px;width: 30%;margin-left:auto;margin-right: auto;">
+                    <div id="lefthalf" style="grid-column: 1;">
+                        <label for="stard" st>Start date:</label>
+                        <input type="date" id="stard" name="startDate">
+                    </div>
 
-        <div style="grid-column: 2;">
-        <h3 style="margin-bottom: 5%;">Select Interviewer(s)</h3>
-        <% for (let inter of admins) { %>
-        <div style="justify-content: center;">
-        <input style="margin-bottom: 4%;" type="checkbox" id=<%= inter.name%> name="admins" value=<%=inter._id%>>
-        <label for=<%= inter.name%>><%= inter.name%></label><br>
-        </div>
-        <% } %>
-        </div>
-        
-       </section> 
-       
-     </form>
- </div>
+
+
+                    <div id="righthalf" style="grid-column: 2;">
+                        <label for="start">Start time:</label>
+                        <input type="time" id="start" name="startTime">
+                    </div>
+
+
+
+                    <div id="lefthalf1" style="grid-column: 1; grid-row: 2;">
+                        <label for="endd">End date:</label>
+                        <input type="date" id="endd" name="endDate">
+                    </div>
+
+                    <div id="righthalf1" style="grid-column: 2;grid-column: 2;">
+                        <label for="endt">End time:</label>
+                        <input type="time" id="endt" name="endTime">
+                    </div>
+
+                </section>
+                <br>
+                <br>
+                <div style="text-align: center;">
+                    <input type="submit" value="submit">
+                </div>
+                <br>
+
+            </div>
+            <section style="display: grid;grid-gap: 20%;margin-left: 30%; margin-right:18%">
+                <div style="grid-column: 1;border-right: 1px solid black;">
+                    <h3 style="margin-bottom: 5%;">Select Candidate</h3>
+                    <% for (let user of users) { %>
+                    <div style="justify-content: center;">
+                        <input style="margin-bottom: 4%;" type="radio" id=<%= user.name%> name="users"
+                            value=<%=user._id%>>
+                        <label for=<%= user.name%>><%= user.name%></label><br>
+                    </div>
+                    <% } %>
+                </div>
+
+                <div style="grid-column: 2;">
+                    <h3 style="margin-bottom: 5%;">Select Interviewer(s)</h3>
+                    <% for (let inter of admins) { %>
+                    <div style="justify-content: center;">
+                        <input style="margin-bottom: 4%;" type="checkbox" id=<%= inter.name%> name="admins"
+                            value=<%=inter._id%>>
+                        <label for=<%= inter.name%>><%= inter.name%></label><br>
+                    </div>
+                    <% } %>
+                </div>
+
+            </section>
+
+        </form>
+    </div>
 </body>
+
 </html>

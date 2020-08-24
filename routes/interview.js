@@ -41,8 +41,10 @@ router.post('/add',async (req,res)=>{
         });
         const result = await newInterview.save();
         // debug('Successfully added new interview with mailing disabled - interview.js/router.post(/add)');
-        debug('Successfully added new interview');
-        const verifyMail = await mailVerification(newInterview.candidate);
+        
+        debug('Successfully added new interview - without email mode');
+        // debug('Successfully added new interview');
+        // const verifyMail = await mailVerification(newInterview.candidate);
         validationError = "Successfully Added Interview";
     }catch(err){
         debug("An error ocurred- ",err.message);

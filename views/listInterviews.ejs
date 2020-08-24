@@ -25,8 +25,8 @@
           <td><%= x.startTime %></td>
           <td><%= x.endTime %></td>
           <td>
-            <form action="https://www.duckduckgo.com" method="GET">
-              <button type="submit">Edit</button></td>
+            <form action=<%="/admin/interview/add?edit="+x._id %> method="GET">
+              <button type="submit" name="editID" value=<%=x._id%>>Edit</button></td>
             </form>
         </tr>
         <% for (let y of x.interviewer){%>

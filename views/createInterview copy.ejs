@@ -29,34 +29,26 @@
                 <section style="display: grid;grid-gap: 10px;width: 30%;margin-left:auto;margin-right: auto;">
                     <div id="lefthalf" style="grid-column: 1;">
                         <label for="stard" st>Start date:</label>
-                        <input 
-                            type="date" id="stard" name="startDate" 
-                            value = <%= data.sdate %>>
+                        <input type="date" id="stard" name="startDate">
                     </div>
 
 
 
                     <div id="righthalf" style="grid-column: 2;">
                         <label for="start">Start time:</label>
-                        <input 
-                            type="time" id="start" name="startTime"
-                            value = <%=data.stime %>>
+                        <input type="time" id="start" name="startTime">
                     </div>
 
 
 
                     <div id="lefthalf1" style="grid-column: 1; grid-row: 2;">
                         <label for="endd">End date:</label>
-                        <input 
-                            type="date" id="endd" name="endDate"
-                            value = <%= data.edate %>>
+                        <input type="date" id="endd" name="endDate">
                     </div>
 
                     <div id="righthalf1" style="grid-column: 2;grid-column: 2;">
                         <label for="endt">End time:</label>
-                        <input 
-                            type="time" id="endt" name="endTime"
-                            value = <%=data.etime %>>
+                        <input type="time" id="endt" name="endTime">
                     </div>
 
                 </section>
@@ -73,25 +65,9 @@
                     <h3 style="margin-bottom: 5%;">Select Candidate</h3>
                     <% for (let user of users) { %>
                     <div style="justify-content: center;">
-
-                        <input 
-                            style="margin-bottom: 4%;" type="radio" id=<%= user._id %> name="users"
-                            value=<%=user._id %>
-                            <% if(String(user._id) == String(data.cadiID)){ %> checked <% } %>
-                        >
-                        <!-- <% if(String(user._id) == String(data.cadiID)){ %>
-                            <input 
-                                checked style="margin-bottom: 4%;" type="radio" id=<%= user._id %> name="users"
-                                value=<%=user._id %>
-                            >
-                        <% } else{ %>
-                            <input
-                                id1 = <% String(user._id) %> id2 = <% String(data.cadiID) %>
-                                style="margin-bottom: 4%;" type="radio" id=<%= user._id %> name="users"
-                                value=<%=user._id %>
-                            >
-                        <% } %> -->
-                        <label for=<%= user._id %>><%= user.name%></label><br>
+                        <input style="margin-bottom: 4%;" type="radio" id=<%= user.name%> name="users"
+                            value=<%=user._id%>>
+                        <label for=<%= user.name%>><%= user.name%></label><br>
                     </div>
                     <% } %>
                 </div>
@@ -100,16 +76,9 @@
                     <h3 style="margin-bottom: 5%;">Select Interviewer(s)</h3>
                     <% for (let inter of admins) { %>
                     <div style="justify-content: center;">
-                        <input 
-                            style="margin-bottom: 4%;" type="checkbox" id=<%= inter._id%> name="admins"
-                            value=<%=inter._id %> 
-                            <% for(let x in data.interviewerIDs) { %>
-                                <% if(String(inter._id) == String(data.interviewerIDs[x])) { %>
-                                    checked
-                                <% break; } %>
-                            <% } %>
-                        >
-                        <label for=<%= inter._id%>><%= inter.name%></label><br>
+                        <input style="margin-bottom: 4%;" type="checkbox" id=<%= inter.name%> name="admins"
+                            value=<%=inter._id%>>
+                        <label for=<%= inter.name%>><%= inter.name%></label><br>
                     </div>
                     <% } %>
                 </div>

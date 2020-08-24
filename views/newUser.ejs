@@ -4,6 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>New User</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <style>
+      .invisible {
+          display: none;
+          visibility: hidden;
+        }
+  </style>
   </head>
   <link href="/css/newUser.css" rel="stylesheet" type="text/css">
   <body>
@@ -60,6 +67,12 @@
 </html>
 
 <script>
+  if($('div#status').text()!='')
+  {
+      console.log($('div#status').text());
+      alert($('div#status').text());
+  }
+
   const realFileBtn = document.getElementById("real-file");
   const customBtn = document.getElementById("custom-button");
   const customTxt = document.getElementById("custom-text");
@@ -77,4 +90,5 @@
       customTxt.innerHTML = "No file chosen, yet.";
     }
   });
+
 </script>

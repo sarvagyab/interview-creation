@@ -21,10 +21,6 @@ router.post("/",async (req, res) => {
     try {
         const resumeID = await fileUpload(req);
         debug("ID IS = ",resumeID);
-        if(resumeID instanceof Error){
-            added = "Sorry, Please try again";
-            return res.redirect("/user");
-        }
         const newUser = new User({
             name: req.body.name,
             phone: req.body.phone,
@@ -54,7 +50,7 @@ async function fileUpload(req){
     }catch(err){
         debug('could not move file');
         debug(err);
-        return err;
+        throw err;
     }            
 }
 

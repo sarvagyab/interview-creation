@@ -30,9 +30,9 @@ router.post('/add',async (req,res)=>{
     debugData(req.body);
     try{
         data = preProcess(req.body);
-        if(data instanceof Error)throw data;
+
         const valid = await validateTime(data);
-        if(valid instanceof Error)throw valid;
+        
         const newInterview = new Interview({
             candidate:data.users,
             interviewer:data.admins,
@@ -59,7 +59,7 @@ function preProcess(data){
         return new Error("Select one cadidate to interview");
     }
     if(!data.admins){
-        return new Error("Select at least one interviewer");
+        throw new Error("Select at least one interviewer");
     }
     if(!Array.isArray(data.admins)){
         data.admins = [data.admins];
@@ -69,13 +69,13 @@ function preProcess(data){
 
     for(let inter of data.admins){
         if(!inter){
-            return new Error("select at least one interviewer");
+            throw new Error("select at least one interviewer");
         }
     }
-    if(!data.startDate)return new Error("select start date for the interview");
-    if(!data.startTime)return new Error("select start time for the interview");
-    if(!data.endDate)return new Error("select end date for the interview");
-    if(!data.endTime)return new Error("select end time for the interview");
+    if(!data.startDate)throw new Error("select start date for the interview");
+    if(!data.startTime)throw new Error("select start time for the interview");
+    if(!data.endDate)throw new Error("select end date for the interview");
+    if(!data.endTime)throw new Error("select end time for the interview");
 
     data.startTime = new Date(data.startDate + ' ' + data.startTime);
     data.endTime = new Date(data.endDate + ' ' + data.endTime);
@@ -86,15 +86,15 @@ function preProcess(data){
 
 async function validateTime(data){
     if((data.startTime>data.endTime)){
-        return new Error("Enter valid Start Times and End times ");
+        throw new Error("Enter valid Start Times and End times ");
     }
     if(data.startTime<(new Date())){
-        return new Error("Invalid start date - Less than today");
+        throw new Error("Invalid start date - Less than today");
     }
     let rows = await Interview.find({candidate:data.users}).select('startTime endTime -_id');
     for(x in rows){
         x = rows[x];
-        if(!(x.startTime>data.endTime || x.endTime<data.startTime))return new Error("Candidate already scheduled for interview at that time");
+        if(!(x.startTime>data.endTime || x.endTime<data.startTime))throw new Error("Candidate already scheduled for interview at that time");
     }
     debug("Valid time!!");
     return true;

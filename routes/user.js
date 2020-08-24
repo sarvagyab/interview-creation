@@ -41,7 +41,7 @@ router.post("/",async (req, res) => {
 
 async function fileUpload(req){
     const Resume = req.files.resumeC;
-    const path = __dirname + "/../resumes/" + Resume.md5;
+    const path = __dirname + "/../data/resumes/" + Resume.md5;
     debug('file uploaded');
     try{
         const result = await Resume.mv(path);

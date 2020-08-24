@@ -1,16 +1,17 @@
 const express = require('express');
 const router = express.Router();
+const url = require('url');
 const debug = require('debug')('app:admins')
 const { Admin } = require('../models/admin');
 const { User } = require('../models/user');
 const { Interview } = require('../models/interview');
-
 let added = "";
 
 router.get('/listUsers',async(req,res)=>{
     try{
         const list = await User.find().sort({name:1});
-        res.render('listUsers',{list});
+        const resumeDir = url.pathToFileURL((__dirname + "/../data/resumes/")).href;
+        res.render('listUsers',{list,resumeDir:resumeDir});
     }catch(err){
         debug('Could not fetch Users list');
         debug(err);

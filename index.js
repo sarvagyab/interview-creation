@@ -10,7 +10,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(expressLayouts);
 app.use(fileUpload({
-    limits: { fileSize: 5 * 1024 *1024 }
+    limits: { fileSize: 5 * 1024 *1024 },
+    createParentPath:true
 }));
 
 app.set('views',path.join(__dirname,'views'));

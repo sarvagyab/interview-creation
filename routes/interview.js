@@ -32,7 +32,7 @@ router.post('/add',async (req,res)=>{
         data = preProcess(req.body);
 
         const valid = await validateTime(data);
-        
+
         const newInterview = new Interview({
             candidate:data.users,
             interviewer:data.admins,
@@ -40,8 +40,8 @@ router.post('/add',async (req,res)=>{
             endTime:data.endTime
         });
         const result = await newInterview.save();
+        // debug('Successfully added new interview with mailing disabled - interview.js/router.post(/add)');
         debug('Successfully added new interview');
-
         const verifyMail = await mailVerification(newInterview.candidate);
         validationError = "Successfully Added Interview";
     }catch(err){

@@ -22,7 +22,7 @@
             <td style="padding: 20px 0;"><label for="name"> <%= x.name %></td>
             <td style="padding: 20px 0;"><label for="name"> <%= x.email %></td>
             <td style="padding: 20px 0;"><label for="name"> <%= x.phone %></td>
-            <td style="padding: 20px 0;"><label for="name"><a href=<%="file:///resumes/" + x.resumeID %> >Resume</a></td>
+            <td style="padding: 20px 0;"><label for="name"><a target="__blank" href=<%= resumeDir + x.resumeID %> >Resume</a></td>
             </tr>
         </div>
     <% }%>

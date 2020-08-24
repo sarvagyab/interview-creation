@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const debug = require('debug')('app:interview');
 const debugData = require('debug')('app:interviewData');
+const debugMail = require('debug')('app:mail');
+
+const sendMail = require('../mailing');
 const { Admin } = require('../models/admin');
 const { User } = require('../models/user');
 const { Interview } = require('../models/interview');
@@ -38,6 +41,8 @@ router.post('/add',async (req,res)=>{
         });
         const result = await newInterview.save();
         debug('Successfully added new interview');
+
+        const verifyMail = await mailVerification(newInterview.candidate);
         validationError = "Successfully Added Interview";
     }catch(err){
         debug("An error ocurred- ",err.message);
@@ -93,4 +98,17 @@ async function validateTime(data){
     }
     debug("Valid time!!");
     return true;
+}
+
+
+async function mailVerification(candidateId){
+    try{
+        const email = await User.find({_id:candidateId}).select('email -_id');
+        console.log(email);
+        await sendMail(email);
+        debug("mail sent successfully");
+    }catch(err){
+        debugMail("could not send mail - ",err);
+        throw err;
+    }
 }

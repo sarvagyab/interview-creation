@@ -60,6 +60,7 @@ router.get('/listInterviews',async(req,res)=>{
 
 router.post('/add',async (req,res)=>{
     debugData(req.body);
+    let code = "";
     try{
         const data = preProcess(req.body);
         const valid = await validateTime(data);
@@ -73,6 +74,9 @@ router.post('/add',async (req,res)=>{
                 startTime:data.startTime,
                 endTime:data.endTime
             });
+            code = "Mail Verification";
+            await mailVerification(data.users);
+            code = "";
             validationError = "Successfully updated the interview";
             // return res.redirect('/admin/interview/listInterviews/');
         }
@@ -84,16 +88,20 @@ router.post('/add',async (req,res)=>{
                 endTime:data.endTime
             });
             const result = await newInterview.save();
-            // debug('Successfully added new interview with mailing disabled - interview.js/router.post(/add)');
             
-            debug('Successfully added new interview - without email mode');
-            // debug('Successfully added new interview');
-            // const verifyMail = await mailVerification(newInterview.candidate);
+            // debug('Successfully added new interview - without email mode');
+            debug('Successfully added new interview');
+            code = "Mail Verification";
+            await mailVerification(newInterview.candidate);
+            code = "";
             validationError = "Successfully Added Interview";
         }
     }catch(err){
         debug("An error ocurred- ",err.message);
-        validationError = err.message;
+        if(code == "Mail Verification"){
+            validationError = "Your data has been added to the database. Due to a server error we could not send confirmation mail. We will fix it as soon as possible. Thank you for your patience."
+        }
+        else validationError = err.message;
     }
     res.redirect('/admin/interview/add');
 });

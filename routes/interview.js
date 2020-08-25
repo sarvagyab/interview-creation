@@ -68,7 +68,7 @@ router.post('/add',async (req,res)=>{
             debugEdit("Reached updating stage");
             debugEdit("ID = ",data.interviewID);
             const check = await Interview.update({_id:data.interviewID},{
-                cadidate:data.users,
+                candidate:data.users,
                 interviewer:data.admins,
                 startTime:data.startTime,
                 endTime:data.endTime
@@ -124,6 +124,9 @@ function setData(startDate,endDate){
 
 
 function preProcess(data){
+    console.log("inside pre process");
+    console.log(data);
+
     if(!data.users){
         throw new Error("Select one cadidate to interview");
     }
@@ -133,8 +136,8 @@ function preProcess(data){
     if(!Array.isArray(data.admins)){
         data.admins = [data.admins];
     }
-    debugData(console.log(data.admins));
-    debugData(console.log(data));
+    debugData("printing admins - ",data.admins);
+    debugData("printing all of data - ",data);
 
     for(let inter of data.admins){
         if(!inter){
@@ -149,6 +152,7 @@ function preProcess(data){
     data.startTime = new Date(data.startDate + ' ' + data.startTime);
     data.endTime = new Date(data.endDate + ' ' + data.endTime);
     debugData("preprocessing passed");
+    debugData("this is the result - ",data);
     return data;
 }
 
@@ -162,8 +166,8 @@ async function validateTime(data){
     }
     let rows = [];
     if(data.interviewID)rows = await Interview.find({candidate:data.users , _id:{$ne:data.interviewID}}).select('startTime endTime -_id');
-    else rows = await Interview.find({candidate:data.users}).select('startTime endTime -_id');
-
+    else rows = await Interview.find({candidate:data.users}).select('startTime endTime');
+    debug("all the rows - ", rows);
     for(x in rows){
         x = rows[x];
         if(!(x.startTime>data.endTime || x.endTime<data.startTime))throw new Error("Candidate already scheduled for interview at that time");

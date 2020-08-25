@@ -28,6 +28,10 @@ app.use('/admin/interview',interview);
 app.use('/admin',admin);
 
 
+app.get('/*',(req,res)=>{
+    res.redirect('/user');
+})
+
 const port = process.env.PORT || 5000 ;
 app.listen(port,()=>{
     debug(`Listening on port ${port}`);

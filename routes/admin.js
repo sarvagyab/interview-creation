@@ -32,14 +32,19 @@ router.get('/listAdmins',async(req,res)=>{
 });
 
 
-router.get('/',async(req,res)=>{
-    res.render('welcome');
-});
-
 
 router.get('/new',async(req,res)=>{
     res.render('newAdmin',{'error':added});
     added = "";
+});
+
+
+router.get('/',async(req,res)=>{
+    res.render('welcome');
+});
+
+router.get('/*',(req,res)=>{
+    res.redirect('/admin/');
 });
 
 

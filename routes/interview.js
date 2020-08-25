@@ -33,9 +33,12 @@ router.get('/add',async (req,res)=>{
             const inter = await Interview.find({_id:id.editID});
             if(inter.length==1){
                 data = setData(inter[0].startTime,inter[0].endTime);
-                data.cadiID = inter[0].candidate;
+                data.cadiID = String(inter[0].candidate);
                 data.interviewerIDs = inter[0].interviewer;
-                data.mode = 'Edit';
+                data.interviewID = id.editID;
+                data.mode = 'Update';
+                data.action = "/admin/interview/add";
+                data.method = "POST";
             }
         }
         debugEdit(data);
@@ -58,23 +61,36 @@ router.get('/listInterviews',async(req,res)=>{
 router.post('/add',async (req,res)=>{
     debugData(req.body);
     try{
-        data = preProcess(req.body);
-
+        const data = preProcess(req.body);
         const valid = await validateTime(data);
-
-        const newInterview = new Interview({
-            candidate:data.users,
-            interviewer:data.admins,
-            startTime: data.startTime,
-            endTime:data.endTime
-        });
-        const result = await newInterview.save();
-        // debug('Successfully added new interview with mailing disabled - interview.js/router.post(/add)');
         
-        debug('Successfully added new interview - without email mode');
-        // debug('Successfully added new interview');
-        // const verifyMail = await mailVerification(newInterview.candidate);
-        validationError = "Successfully Added Interview";
+        if(data.interviewID){
+            debugEdit("Reached updating stage");
+            debugEdit("ID = ",data.interviewID);
+            const check = await Interview.update({_id:data.interviewID},{
+                cadidate:data.users,
+                interviewer:data.admins,
+                startTime:data.startTime,
+                endTime:data.endTime
+            });
+            validationError = "Successfully updated the interview";
+            // return res.redirect('/admin/interview/listInterviews/');
+        }
+        else {
+            const newInterview = new Interview({
+                candidate:data.users,
+                interviewer:data.admins,
+                startTime: data.startTime,
+                endTime:data.endTime
+            });
+            const result = await newInterview.save();
+            // debug('Successfully added new interview with mailing disabled - interview.js/router.post(/add)');
+            
+            debug('Successfully added new interview - without email mode');
+            // debug('Successfully added new interview');
+            // const verifyMail = await mailVerification(newInterview.candidate);
+            validationError = "Successfully Added Interview";
+        }
     }catch(err){
         debug("An error ocurred- ",err.message);
         validationError = err.message;
@@ -101,13 +117,15 @@ function setData(startDate,endDate){
     data.stime = parseTime(startDate.getHours(),startDate.getMinutes());
     data.etime = parseTime(endDate.getHours(), endDate.getMinutes());
     data.mode = "Submit";
+    data.method = "POST";
+    data.action = "/admin/interview/add/";
     return data;
 }
 
 
 function preProcess(data){
     if(!data.users){
-        return new Error("Select one cadidate to interview");
+        throw new Error("Select one cadidate to interview");
     }
     if(!data.admins){
         throw new Error("Select at least one interviewer");
@@ -142,7 +160,10 @@ async function validateTime(data){
     if(data.startTime<(new Date())){
         throw new Error("Invalid start date - Less than today");
     }
-    let rows = await Interview.find({candidate:data.users}).select('startTime endTime -_id');
+    let rows = [];
+    if(data.interviewID)rows = await Interview.find({candidate:data.users , _id:{$ne:data.interviewID}}).select('startTime endTime -_id');
+    else rows = await Interview.find({candidate:data.users}).select('startTime endTime -_id');
+
     for(x in rows){
         x = rows[x];
         if(!(x.startTime>data.endTime || x.endTime<data.startTime))throw new Error("Candidate already scheduled for interview at that time");

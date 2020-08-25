@@ -21,7 +21,7 @@
 <body>
     <div id='status' class='invisible'><%= error %></div>
     <div>
-        <form name="something" action="/admin/interview/add/" method="POST">
+        <form name="something" action=<%= data.action %> method=<%= data.method %>>
             <div id="timings" style="margin:auto;">
                 <h3 style="text-align: center; padding:3%">Timings</h3>
 
@@ -63,7 +63,7 @@
                 <br>
                 <br>
                 <div style="text-align: center;">
-                    <input type="submit" value="submit">
+                    <input type="submit" value=<%= data.mode %>>
                 </div>
                 <br>
 
@@ -111,6 +111,9 @@
                         >
                         <label for=<%= inter._id%>><%= inter.name%></label><br>
                     </div>
+                    <% } %>
+                    <% if(data.mode == "Update") { %>
+                        <input class = "invisible" name="interviewID" value=<%= data.interviewID %>>
                     <% } %>
                 </div>
 
